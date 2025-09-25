@@ -28,10 +28,11 @@ We kept photos of our progress (see the `images/` folder), including:
 - Chassis building and wiring  
 - Assembly stages  
 - Almost finished robot  
-- Front view (we called it the "curious robot" 🙂)  
-
 ## Demo Videos
 We also recorded short videos to showcase the robot:  
-- [Robot Showcase 1](videos/robot_showcase1.mp4)  
-- [Robot Showcase 2](videos/robot_showcase2.mp4)
+- [Robot Showcase 1](media/videos/robot_showcase1.mp4)  
+- [Robot Showcase 2](media/videos/robot_showcase2.mp4)
+
+## 📜 License
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
 
