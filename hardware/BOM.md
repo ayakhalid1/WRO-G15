@@ -15,8 +15,9 @@ Source: RoboticX (Ramallah, Birzeit) – Invoice No. SL_2178 – Date: 2025-06-1
 | ELEC-20913| Lithium Battery 18650 Charger Module (Type-C 15W 3A DC) |  1  | 35.00            | 35.00       |
 | IOT-21425 | ESP32 30-pin (Type-C)                                   |  1  | 45.00            | 45.00       |
 | ROB-1876  | 4WD Robot Smart Car 6V DC                               |  1  | 95.00            | 95.00       |
+| TOF-XXXX  | Time-of-Flight (ToF) Sensors                            |  2  | 45.00            | 90.00       |
 
 ---
 
 **Discount:** 31.00 NIS  
-**Total Paid:** 340.00 NIS  
+**Total Paid:** 430.00 NIS  
