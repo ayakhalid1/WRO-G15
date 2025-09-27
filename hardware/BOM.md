@@ -1,18 +1,22 @@
 # Bill of Materials (BOM)
 
-| القطعة                | الموديل/النوع           | العدد | السعر (شيكل) | الملاحظات |
-|-----------------------|-------------------------|-------|--------------|-----------|
-| ESP32 DevKit V1       | WiFi + Bluetooth        | 1     | ~50          | وحدة التحكم الرئيسية |
-| L298N Motor Driver    | Dual H-Bridge           | 1     | ~20          | لتشغيل محركين DC |
-| محركات DC             | 6V مع جيربوكس          | 2     | ~15          | للعجلات الخلفية |
-| Servo Motor           | SG90                   | 1     | ~10          | للتوجيه الأمامي |
-| Ultrasonic Sensor     | HC-SR04                 | 1     | ~10          | لتجنب العوائق |
-| TCS3200 Color Sensor  | RGB Color Detection     | 1     | ~25          | لتمييز ألوان الأرضية |
-| عجلات                 | 65mm                   | 4     | ~20          | مطاطية، جرّ عالي |
-| بطاريات 18650         | 5000mAh (3.7V)         | 2     | ~25          | للتغذية |
-| حامل بطاريات          | 2×18650 Holder          | 1     | ~5           | يوصل للـ L298N |
-| شاسيه                 | Acrylic 2-layer Chassis | 1     | ~30          | قاعدة الروبوت |
-| أسلاك Jumper          | Male/Female            | 1 set | ~15          | للتوصيل |
-| براغي/مباعدات        | Assorted Kit           | عدة   | —            | لتثبيت القطع |
+This is the list of components purchased for the WRO-G15 robot.  
+Source: RoboticX (Ramallah, Birzeit) – Invoice No. SL_2178 – Date: 2025-06-11  
 
-> المجموع الكلي التقريبي: **210–230 شيكل**
+| Code      | Component Description                                  | Qty | Unit Price (NIS) | Total (NIS) |
+|-----------|---------------------------------------------------------|-----|------------------|-------------|
+| SEN-2067  | Ultrasonic Ranging Module HC-SR04                       |  1  | 22.00            | 22.00       |
+| ELEC-3282 | Ultrasonic Ranging Sensor Bracket                       |  1  | 14.00            | 14.00       |
+| ELE-4177  | Lithium Ion Battery – 18650 Cell (5000mAh)              |  2  | 25.00            | 50.00       |
+| ROB-1900  | Dual Motor Controller Module – L298N                    |  1  | 22.00            | 22.00       |
+| ELEC-2174 | Female/Male Jumper Wires – 40 x 20cm                    |  1  | 16.00            | 16.00       |
+| SEN-2044  | TCS230 Color Recognition Sensor                         |  1  | 37.00            | 37.00       |
+| IOT-21002 | ESP32 30-pin Expansion Board                            |  1  | 35.00            | 35.00       |
+| ELEC-20913| Lithium Battery 18650 Charger Module (Type-C 15W 3A DC) |  1  | 35.00            | 35.00       |
+| IOT-21425 | ESP32 30-pin (Type-C)                                   |  1  | 45.00            | 45.00       |
+| ROB-1876  | 4WD Robot Smart Car 6V DC                               |  1  | 95.00            | 95.00       |
+
+---
+
+**Discount:** 31.00 NIS  
+**Total Paid:** 340.00 NIS  
