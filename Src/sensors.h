@@ -1,12 +1,14 @@
 #ifndef SENSORS_H
 #define SENSORS_H
-
+#include <Arduino.h>
 #include "config.h"
 
-void sensorsInit();           // تهيئة الآلتراسونك + TCS3200
-long readUltrasonicCM();      // المسافة بالسم
-int  readColor(bool s2, bool s3);
-int  readChannelMedian(bool s2, bool s3);
-Col  readMatColorNorm();      // White / Blue / Orange / Other
+void sensorsInit();
+
+long readUltrasonicCM(uint8_t trigPin, uint8_t echoPin);
+
+unsigned long readTCSFrequency(uint8_t s2, uint8_t s3);
+void readColorRG(unsigned long &fR, unsigned long &fG);
+DetectedColor detectColor();
 
 #endif

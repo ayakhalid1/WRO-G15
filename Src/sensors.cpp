@@ -1,66 +1,47 @@
-#include <Arduino.h>
-#include <math.h>
-#include "config.h"
 #include "sensors.h"
 
-void sensorsInit() {
-  // Ultrasonic
-  pinMode(TRIG_PIN, OUTPUT);
-  pinMode(ECHO_PIN, INPUT);
+void sensorsInit(){
+  pinMode(TRIG_FRONT,OUTPUT); pinMode(ECHO_FRONT,INPUT);
+  pinMode(TRIG_RIGHT,OUTPUT); pinMode(ECHO_RIGHT,INPUT);
+  pinMode(TRIG_LEFT ,OUTPUT); pinMode(ECHO_LEFT ,INPUT);
 
-  // TCS3200
-  pinMode(S0, OUTPUT); pinMode(S1, OUTPUT);
-  pinMode(S2, OUTPUT); pinMode(S3, OUTPUT);
-  pinMode(OUT_PIN, INPUT);
-
-  // 20% scaling
-  digitalWrite(S0, HIGH);
-  digitalWrite(S1, LOW);
+  pinMode(S0,OUTPUT); pinMode(S1,OUTPUT);
+  pinMode(S2,OUTPUT); pinMode(S3,OUTPUT);
+  pinMode(OUT_PIN,INPUT);
 }
 
-long readUltrasonicCM() {
-  digitalWrite(TRIG_PIN, LOW); delayMicroseconds(2);
-  digitalWrite(TRIG_PIN, HIGH); delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
-  long duration = pulseIn(ECHO_PIN, HIGH, 30000);
-  if (duration == 0) return -1;
-  long distance = (long)(duration * 0.034f / 2.0f);
-  return distance;
+long readUltrasonicCM(uint8_t trigPin, uint8_t echoPin){
+  digitalWrite(trigPin, LOW); delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH); delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  unsigned long dur = pulseIn(echoPin, HIGH, 30000UL);
+  if(dur==0) return -1;
+  return (long)(dur/58);
 }
 
-int readColor(bool s2State, bool s3State) {
-  digitalWrite(S2, s2State);
-  digitalWrite(S3, s3State);
-  delay(5);
-  int duration = pulseIn(OUT_PIN, HIGH, 50000); // 50ms
-  if (duration == 0) duration = 50000;
-  int frequency = 1000000 / duration;
-  return frequency;
+unsigned long readTCSFrequency(uint8_t s2, uint8_t s3){
+  digitalWrite(S2, s2); digitalWrite(S3, s3);
+  delayMicroseconds(200);
+  unsigned long total=0;
+  for(int i=0;i<COLOR_SAMPLES;i++){
+    unsigned long t = pulseIn(OUT_PIN, LOW, 30000UL);
+    if(t==0) t=30000UL;
+    total += t;
+  }
+  return total / COLOR_SAMPLES;
 }
 
-int readChannelMedian(bool s2, bool s3){
-  int a = readColor(s2,s3);
-  int b = readColor(s2,s3);
-  int c = readColor(s2,s3);
-  if (a>b){int t=a;a=b;b=t;}
-  if (b>c){int t=b;b=c;c=t;}
-  if (a>b){int t=a;a=b;b=t;}
-  return b; // الوسيط
+void readColorRG(unsigned long &fR, unsigned long &fG){
+  digitalWrite(S0,HIGH); digitalWrite(S1,LOW);
+  fR = readTCSFrequency(LOW, LOW);
+  fG = readTCSFrequency(HIGH, HIGH);
 }
 
-Col readMatColorNorm(){
-  int R = max(readChannelMedian(LOW,LOW),  1); // R
-  int G = max(readChannelMedian(LOW,HIGH), 1); // G
-  int B = max(readChannelMedian(HIGH,HIGH),1); // B
-  float S = (float)R + G + B;
-  float Rn = R/S, Gn = G/S, Bn = B/S;
-
-  bool isBlue   = (Bn > 0.50f) && (Rn < 0.30f) && (Gn < 0.40f);
-  bool isOrange = (Rn > 0.50f) && (Bn < 0.25f) && (Gn > 0.20f);
-  bool nearWhite= (fabs(Rn-Gn) < 0.10f) && (fabs(Gn-Bn) < 0.10f);
-
-  if (isBlue)    return C_BLUE;
-  if (isOrange)  return C_ORANGE;
-  if (nearWhite) return C_WHITE;
-  return C_OTHER;
+DetectedColor detectColor(){
+  unsigned long fR, fG; readColorRG(fR,fG);
+  bool redStronger   = (float)fG > COLOR_MARGIN_RATIO * (float)fR;
+  bool greenStronger = (float)fR > COLOR_MARGIN_RATIO * (float)fG;
+  if (redStronger)   return COLOR_RED;
+  if (greenStronger) return COLOR_GREEN;
+  return COLOR_UNKNOWN;
 }
